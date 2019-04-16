@@ -1,0 +1,2 @@
+ecs-cli configure --cluster consensys-demo --region us-east-1
+ecs-cli up --capability-iam --size 1 --instance-type m4.xlarge --image-id ami-007571470797b8ffa

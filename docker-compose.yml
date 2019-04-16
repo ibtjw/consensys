@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+
+  server:
+    image: 215220877471.dkr.ecr.us-east-1.amazonaws.com/consensys-demo-server
+    build: ./server
+    expose:
+      - ${SERVER_PORT}
+    environment:
+      SERVER_PORT: ${SERVER_PORT}
+    ports:
+      - ${SERVER_PORT}:${SERVER_PORT}
+    volumes:
+      - ./server/src:/srv/app/server/src
+    command:
+      npm run start
+
+  client:
+    image: 215220877471.dkr.ecr.us-east-1.amazonaws.com/consensys-demo-client
+    build: ./client
+    expose:
+      - ${CLIENT_PORT}
+    ports:
+      - ${CLIENT_PORT}:${CLIENT_PORT}
+    volumes:
+      - ./client/src:/srv/app/client/src
+      - ./client/public:/srv/app/client/public
+    links:
+      - server
+    command:
+      npm run start
